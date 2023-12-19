@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import { useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
 import './App.css';
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
   
   function handleCallbackResponse(response){
     console.log("Signin Success, Encoded JWT ID token: " + response.credential);
+    var userObject = jwtDecode(response.credential);
+    console.log(userObject);
   }
 
   useEffect(()=> {
