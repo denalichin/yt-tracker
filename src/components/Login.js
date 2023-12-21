@@ -13,6 +13,7 @@ export default function Login() {
     function handleCallbackResponse(response){
         console.log("Signin Success, Encoded JWT ID token: " + response.credential);
         var userObject = jwtDecode(response.credential);
+        console.log("User Object: ");
         console.log(userObject);
 
         setUser(userObject);

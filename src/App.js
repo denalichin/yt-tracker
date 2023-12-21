@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import './App.css';
 import { LoginContext } from './contexts/LoginContext';
 import Login from './components/Login';
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
@@ -26,10 +27,14 @@ function App() {
   return (
     <LoginContext.Provider value={{user, setUser}}> {/* these variables accessible by all sub divs and components */}
       <div className="App">
-        <Login />
-        {/* <div id="signInDiv"></div> */}
 
-        {Object.keys(user).length != 0 && //if user object is not empty, then show signout button
+        {Object.keys(user).length != 0 && //if user object is not empty, then show signout button (temporary)
+          <Dashboard/>
+        }
+
+        <Login />
+
+        {Object.keys(user).length != 0 && //if user object is not empty, then show signout button (temporary)
           <button onClick={ (e) => handleSignOut(e)}>Sign Out</button>
         }
 
@@ -40,6 +45,8 @@ function App() {
           </div>
         
         }
+
+
       </div>
     </LoginContext.Provider>
   );
