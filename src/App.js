@@ -2,11 +2,12 @@ import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import './App.css';
+import { LoginContext } from './contexts/LoginContext';
 
 function App() {
 
-   // VVV below comment prevents lintor from marking google as undefined (it's defined in index.html)
-  /*global google*/ 
+  const google = window.google;
+   
   const [user, setUser] = useState({}) //temporary, don't use this normally, use context API or Redux
 
   function handleCallbackResponse(response){
@@ -40,21 +41,23 @@ function App() {
   
 
   return (
-    <div className="App">
-      <div id="signInDiv"></div>
+    <LoginContext.Provider value={{user, setUser}}> {/* these variables accessible by all sub divs */}
+      <div className="App">
+        <div id="signInDiv"></div>
 
-      {Object.keys(user).length != 0 && //if user object is not empty, then show signout button
-         <button onClick={ (e) => handleSignOut(e)}>Sign Out</button>
-      }
+        {Object.keys(user).length != 0 && //if user object is not empty, then show signout button
+          <button onClick={ (e) => handleSignOut(e)}>Sign Out</button>
+        }
 
-      {user &&
-        <div>
-          <img src={user.picture}></img>
-          <h3>{user.name}</h3>
-        </div>
-      
-      }
-    </div>
+        {user &&
+          <div>
+            <img src={user.picture}></img>
+            <h3>{user.name}</h3>
+          </div>
+        
+        }
+      </div>
+    </LoginContext.Provider>
   );
 }
 
