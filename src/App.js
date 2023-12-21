@@ -13,10 +13,10 @@ function App() {
    /*global google*/ 
   const [user, setUser] = useState({}) //temporary, don't use this normally, use context API or Redux
 
-  function handleSignOut(event){
-    setUser({}); //set user to empty object, effectively signing out
-    document.getElementById("signInDiv").hidden = false;
-  }
+  // function handleSignOut(event){
+  //   setUser({}); //set user to empty object, effectively signing out
+  //   document.getElementById("signInDiv").hidden = false;
+  // }
 
   useEffect(()=> {
 
@@ -28,23 +28,19 @@ function App() {
     <LoginContext.Provider value={{user, setUser}}> {/* these variables accessible by all sub divs and components */}
       <div className="App">
 
-        {Object.keys(user).length != 0 && //if user object is not empty, then show signout button (temporary)
-          <Dashboard/>
+        {/* <Login /> */}
+
+        {Object.keys(user).length != 0 ? //if user object is not empty, then show dashboard
+          <Dashboard/> :  <Login/>
         }
 
-        <Login />
-
-        {Object.keys(user).length != 0 && //if user object is not empty, then show signout button (temporary)
-          <button onClick={ (e) => handleSignOut(e)}>Sign Out</button>
-        }
-
-        {user &&
-          <div>
-            <img src={user.picture}></img>
-            <h3>{user.name}</h3>
-          </div>
         
-        }
+
+        {/* {Object.keys(user).length != 0 && //if user object is not empty, then show signout button (temporary)
+          <button onClick={ (e) => handleSignOut(e)}>Sign Out</button>
+        } */}
+
+        
 
 
       </div>
